@@ -11,7 +11,14 @@ import java.util.List;
 
 public class Bestillinger {
 
+
     List<Order> orders = new ArrayList<>();
+
+    List<Pizza> pizzas;
+
+    public List<Pizza> getPizzas() {
+        return pizzas;
+    }
 
     public void addOrderToOrders(Order order) {
         orders.add(order);

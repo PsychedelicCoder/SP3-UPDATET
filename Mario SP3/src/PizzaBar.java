@@ -1,11 +1,8 @@
-/*
-@Annika
+//Annika
+/* her har vi lavet vores controller, så Alfonso og Mario
+kan se ordrene, se menuen, oprette nye ordre, se tidligere ordre og lukke
+for programmet, når de er færdige
  */
-
-// Det er her de begge skal kunne se de aktive ordre, det er også her man skal kunne tilføje nye ordre.
-// Og man skal også kunne fjerne de færdige odre over i inaktive ordre.
-// Der skal gøres brug af en eller anden form for scanner i det den skal afvente et input fra Alfons når der,
-// skal tilføjes en ny ordre eller slettes en færdig en.
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -13,55 +10,50 @@ import java.util.Scanner;
 public class PizzaBar {
 
     Bestillinger bestillinger = new Bestillinger();
-
     Menu menu = new Menu();
     Ui ui = new Ui();
+    ArrayList<Order> orderServices = new ArrayList<>();
 
     Scanner sc = new Scanner(System.in);
     int choice = 0;
-    int exitValue = 6;
+    int value = 6;
 
-    ArrayList<Order> orderServices = new ArrayList<>();
 
     public void runProgram() {
 
-        System.out.println(
-                "Press 1 to see menu" + '\n' +
-                        "Press 2 to see costumers and orders" + '\n' +
-                        "Press 3 to see active orders" + '\n' +
-                        "Press 4 to see previous orders" + '\n' +
-                        "Press 5 to move order from active to previous" + '\n' +
-                        "Press 6 to exit program");
-
-        while (choice != exitValue) {
+        while (choice != value) {
 
             choice = sc.nextInt();
             switch (choice) {
                 case 1:
                     seeMenu();
+                    runProgramPrint();
                     break;
                 case 2:
                     newCostumerAndOrder();
+                    runProgramPrint();
                     break;
                 case 3:
                     seeActiveOrder();
+                    runProgramPrint();
                     break;
                 case 4:
                     seeInactiveOrder();
+                    runProgramPrint();
                     break;
                 case 5:
                     moveOrder();
-                    break;
+                    runProgramPrint();
                 case 6:
-                    exit();
+                    value = exit();
                     break;
                 default:
-                    choice = exitValue;
+                    choice = value;
             }
 
         }
     }
-
+    //Denne metode gør det muligt at se alle pizzaerne
     private void seeMenu() {
         menu.readFile();
 
@@ -71,7 +63,7 @@ public class PizzaBar {
 
     }
 
-
+    // her oprettes en ny kunde og deres bestilling
     private void newCostumerAndOrder() {
         Customer customer = new Customer(1, 1, "");
         ui.newCustommer(customer);
@@ -83,49 +75,49 @@ public class PizzaBar {
         orderServices.add(order);
 
     }
-
+    //her ses alle de aktive ordre
     private void seeActiveOrder() {
 
     }
-
+    //her kan de tidligere ordre ses
     private void seeInactiveOrder() {
         bestillinger.readOrdersFromFile();
 
     }
-
+    // her bliver de aktive ordre, der er afhentet flyttet
     private void moveOrder() {
         bestillinger.writeOrdersToFile();
 
     }
-
+    // dette er exit metoden.
+    // den bruges til at lukke for programmet helt
     private int exit() {
         int exitChoice = 1;
         int exitValue = 2;
-        while (exitChoice != exitValue){
+        while (exitChoice != exitValue) {
             System.out.println("Do you want to exit? press 7, else press 1");
             choice = sc.nextInt();
-            switch (choice){
+            switch (choice) {
                 case 1:
                     return 1;
 
 
-                default: return 2;
+                default:
+                    return 2;
             }
         }
         return 1;
     }
-
- /*   public int totalPrice() {
-        price = 0;
-        for (int i = 0; i < bestillinger.getOrders().size(); i++) {
-            price += price;
-
-        }
-        return price;
-        //Pris metode
-        //kan udregne prisen for alle pizzaerne i ordrene
-
+    //denne metode gør så når man feks har lavet en ny kunde
+    //og ordre, så får man controller menuen op igen, så man kan vælge igen
+    private void runProgramPrint() {
+        System.out.println(
+                "Press 1 to see menu" + '\n' +
+                        "Press 2 to see costumers and orders" + '\n' +
+                        "Press 3 to see active orders" + '\n' +
+                        "Press 4 to see previous orders" + '\n' +
+                        "Press 5 to move order from active to previous" + '\n' +
+                        "Press 6 to exit program");
     }
 
-  */
 }

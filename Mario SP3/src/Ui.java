@@ -1,3 +1,5 @@
+//Julius Krüger
+
 import java.util.Scanner;
 
 public class Ui {
